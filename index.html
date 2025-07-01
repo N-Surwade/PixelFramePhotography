@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PixelFrame Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      background-color: #27292B;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      font-size: 1.8em;
+      color: #fff;
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #ddd;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #f97316;
+    }
+   
+
+    .hero {
+      height: 100vh;
+      background: url('bg.jpg') center/cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      max-width: 700px;
+      padding: 0 20px;
+    }
+
+    .hero h2 {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      background: #88ddee;
+      color: #fff;
+      padding: 14px 30px;
+      border: none;
+      font-size: 0.9rem;
+      border-radius: 55px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #3dabef;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    section h3 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .glass-box {
+      background: #24252B;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 0 auto;
+      display: inline-block;
+      color: #f1cccc;
+      max-width: 1200px;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+    }
+    .gallery::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .img-container {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 8px;
+      flex: 0 0 auto;
+      filter: none;
+      transition: filter 0.9s ease;
+    }
+
+    .img-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      font-size: 1em;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .img-container:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Blur effect on images not active */
+    .img-container:not(.active) {
+      filter: blur(2px) brightness(0.9);
+    }
+
+    /* Shrink other sections */
+    #services .glass-box,
+    #contact .glass-box {
+      padding: 20px;
+      max-width: 700px;
+    }
+
+    #services, #contact {
+      padding: 40px 20px;
+    }
+    
+    .footer{
+      padding-top: 10px;
+      text-align: center;
+      background-color: #000;
+      height: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-family: 'Playfair Display', serif;
+        margin: 0;
+        font-size: 1.2em;
+        color: #fff;
+      }
+
+      nav a {
+        margin-left: 5px;
+        font-size: 10px;
+      }
+
+      .img-container {
+        width: 80%;
+      }
+
+      .hero h2 {
+        font-size: 2.2em;
+      }
+
+      .hero p {
+        font-size: 1em;
+      }
+
+      section h3 {
+        font-size: 1.8em;
+      }
+
+      .cta-button {
+        padding: 10px 22px;
+        font-size: 0.85rem;
+      }
+
+       .footer{
+        font-size: 10px;
+      padding-top: 10px;
+      text-align: center;
+      background-color: #000;
+      height: 40px;
+    }
+
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>PixelFrame</h1>
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Where Every Shot Tells a Story</h2>
+      <p>Elegant, timeless, and professional photography for every occasion.</p>
+      <a href="#contact" class="cta-button">Book Now</a>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="glass-box">
+      <h3>Gallery Highlights</h3>
+      <div class="gallery" id="gallery">
+        <div class="img-container">
+          <img src="portrait.jpg" alt="Portrait" />
+          <div class="img-info">Portrait Photography</div>
+        </div>
+        <div class="img-container">
+          <img src="fashion.webp" alt="Fashion" />
+          <div class="img-info">Fashion Editorials</div>
+        </div>
+        <div class="img-container">
+          <img src="wedding.jpg" alt="Wedding" />
+          <div class="img-info">Wedding Moments</div>
+        </div>
+        <div class="img-container">
+          <img src="event.webp" alt="Event" />
+          <div class="img-info">Corporate Events</div>
+        </div>
+        <div class="img-container">
+          <img src="model.avif" alt="Model" />
+          <div class="img-info">Model Portfolio</div>
+        </div>
+        <!-- Duplicate images for seamless scroll -->
+        <div class="img-container">
+          <img src="portrait.jpg" alt="Portrait" />
+          <div class="img-info">Portrait Photography</div>
+        </div>
+        <div class="img-container">
+          <img src="fashion.webp" alt="Fashion" />
+          <div class="img-info">Fashion Editorials</div>
+        </div>
+        <div class="img-container">
+          <img src="wedding.jpg" alt="Wedding" />
+          <div class="img-info">Wedding Moments</div>
+        </div>
+        <div class="img-container">
+          <img src="event.webp" alt="Event" />
+          <div class="img-info">Corporate Events</div>
+        </div>
+        <div class="img-container">
+          <img src="model.avif" alt="Model" />
+          <div class="img-info">Model Portfolio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-image-section" id="services">
+    <div class="glass-box">
+      <h3>Our Services</h3>
+      <p>We specialize in studio portraits, fashion editorials, weddings, and corporate events. Whether you want natural lighting or high-end retouching, we've got you covered with a creative touch.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="glass-box">
+      <h3>Get in Touch</h3>
+      <p>Email: <strong>book@pixelframe.com</strong><br>
+         Call: <strong>+123 456 7890</strong></p><br>
+      <a href="mailto:surwadenisha814@gmail.com" class="cta-button">Email Us</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    &copy; 2025 PixelFrame Photography. All rights reserved.
+  </footer>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const images = gallery.querySelectorAll('.img-container');
+
+    // Auto scroll speed in pixels per frame (~60fps)
+    const scrollSpeed = 0.5;
+
+    // For blur active image effect:
+    function updateActiveImage() {
+      const center = gallery.scrollLeft + gallery.offsetWidth / 2;
+      images.forEach(img => {
+        const imgCenter = img.offsetLeft + img.offsetWidth / 2;
+        const distance = Math.abs(center - imgCenter);
+        const threshold = img.offsetWidth / 2;
+        if (distance < threshold) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+    }
+
+    // Infinite scroll by duplicating images and resetting scrollLeft:
+    function autoScroll() {
+      if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
+        gallery.scrollLeft = 0;
+      } else {
+        gallery.scrollLeft += scrollSpeed;
+      }
+      updateActiveImage();
+      requestAnimationFrame(autoScroll);
+    }
+
+    // Start auto scroll on window load
+    window.addEventListener('load', () => {
+      updateActiveImage();
+      autoScroll();
+    });
+
+    // Update active image on manual scroll
+    gallery.addEventListener('scroll', updateActiveImage);
+
+    // For initial blur effect on smaller widths too
+    window.addEventListener('resize', updateActiveImage);
+  </script>
+
+</body>
+</html>
